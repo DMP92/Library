@@ -302,7 +302,6 @@ vertical-align: center;
 
 footer {
     color: #b3cde0;
-
     grid-area: "outro";
     position: relative;
     bottom: 0;
@@ -383,6 +382,7 @@ input {
 }
 
 .modalText {
+    justify-self: center;
     display: grid;
     grid-area: "text";
     grid-column: span 2;
