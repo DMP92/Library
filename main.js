@@ -8,8 +8,21 @@ function Book(name, author, pages) {
 }
 
 function addBookToLibrary() {
-
+    console.log("Eureka!");
+    prompt("What books have you read?", "book title here");
+    let name = prompt.value;
+    let newBook = new Book(name);
+    console.log(newBook);
 }
+
+let addBook = document.querySelector('.addButt');
+
+addBook.addEventListener('click', addBookToLibrary);
+
+
+
+
+// Modal Menu
 
 var clicked = false;
 let modalButton = document.querySelector('.linedNavDiv');
@@ -48,3 +61,5 @@ modalClose.addEventListener('click', function() {
         line3.style.cssText = '';
         clicked = false;
 })
+
+// ----------------

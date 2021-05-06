@@ -42,10 +42,23 @@
         </div>
 
         <div class="modal">
+
             <div class="modalContent">
+
                 <button class="closeModal">X</button>
+
                 <div class="modalText">
-                    This Will be a greeting
+
+                    <form class="form">
+                    <label for="title">Title:</label>
+                    <input class="bookTitle">
+                    <label for="author">Author:</label>
+                    <input class="bookAuthor">
+                    <label for="pages">Pages:</label>
+                    <input class="bookPages">
+                    <input type="range" min="0" max="pages" value="50" class="slider" id="myRange"> 
+                    </form>
+
                 </div>
 
                 <button class="addButt">
