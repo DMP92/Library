@@ -7,8 +7,8 @@ function Book(name, author, pages) {
         this.summary
 }
 
+
 function addBookToLibrary() {
-    console.log("Eureka!");
     prompt("What books have you read?", "book title here");
     let name = prompt.value;
     let newBook = new Book(name);
