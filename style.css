@@ -6,8 +6,8 @@ padding: 0;
 height: 100% !important;
 width: 100%;
 background-color: #000000;
-background-image: url("data:image/svg+xml,%3Csvg width='44' height='12' viewBox='0 0 44 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 12v-2L0 0v10l4 2h16zm18 0l4-2V0L22 10v2h16zM20 0v8L4 0h16zm18 0L22 8V0h16z' fill='%23154b3e' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");width: 100%;
 vertical-align: center;
+display: grid;
 
 }
 
@@ -15,6 +15,9 @@ vertical-align: center;
 
 
     .pageContainer {
+        background-image: url("data:image/svg+xml,%3Csvg width='44' height='12' viewBox='0 0 44 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 12v-2L0 0v10l4 2h16zm18 0l4-2V0L22 10v2h16zM20 0v8L4 0h16zm18 0L22 8V0h16z' fill='%23154b3e' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");width: 100%;
+        background-attachment: fixed;
+
         position: relative;
         display: grid;
         grid-gap: 50px;
@@ -113,8 +116,9 @@ vertical-align: center;
 
 } */
 
+/* Animation for opening Modal  */
 
-@keyframes nav1 {
+@keyframes nav1Open {
     0% {
         transform: scale(1.2) ;
         transition: ease-in;
@@ -129,7 +133,7 @@ vertical-align: center;
     }
 }
 
-@keyframes nav2 {
+@keyframes nav2Open {
     0% {
         transform: scale(1.2);
     }
@@ -142,7 +146,7 @@ vertical-align: center;
     }
 }
 
-@keyframes nav3 {
+@keyframes nav3Open {
     0% {
         transform: scale(1.2);
         transition: ease-in;
@@ -157,6 +161,54 @@ vertical-align: center;
         opacity: 0;
     }
 }
+
+/* Animation for Closing Modal */
+
+@keyframes nav1Close {
+    0% {
+        transform: rotate(-45deg) translateY(7.5px) translateX(-7.5px);
+        transition: ease-in;
+    }
+    50% {
+        transform: scale(1.1) translateY(9.5px);
+        transition: ease-in;
+    }
+    100% {
+        transform: scale(1) ;
+        transition: ease-in;
+    }
+}
+@keyframes nav2Close {
+    0% {
+        transform: rotate(45deg);
+        transition: ease-in;
+    }
+    50% {
+        transform: scale(1.2);
+
+    }
+    100% {
+        transform: scale(1);
+
+    }
+}
+@keyframes nav3Close {
+    0% {
+        transform: rotate(45deg) translateY(-8.25px);
+        transition: ease;
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-10.5px);
+        transition: ease-in;
+    }
+    100% {
+        transform: scale(1);
+        transition: ease-in;
+    }
+}
+
+/* Div Items for Modal Icon */
 
 .linedNav1, .linedNav2, .linedNav3 {
     background-color: #b3cde0;
@@ -173,6 +225,7 @@ vertical-align: center;
     
 }
 
+/* Display for each object / book */
 
 @media screen and (max-width: 400px) {
     .bookDisplay {
@@ -207,6 +260,8 @@ vertical-align: center;
         
     }
 }
+
+/* Styling for book objects */
 
 .exampleBook  {
     background-color: rgba(48, 143, 75, 0.898);
@@ -300,6 +355,8 @@ vertical-align: center;
     height: 90%;
 }
 
+/* Footer styling */
+
 footer {
     color: #b3cde0;
     grid-area: "outro";
@@ -313,7 +370,7 @@ footer {
     
 }
 
-    .modal {
+.modal {
         display: none;
         position: fixed;
         background-color: rgba(48, 143, 75, 1);
@@ -323,9 +380,9 @@ footer {
         height: 60vh;
         z-index: 1; 
         top: 10%;
-        box-shadow: 0px 0px 50px rgba(0, 0, 0, 1) 
-    }
-
+        box-shadow: 0px 0px 50px rgba(0, 0, 0, 1); 
+        place-self: center center;
+}
 
 
 
@@ -345,6 +402,8 @@ footer {
     align-content: center;
     align-items: center;
     text-align: center;
+    color: rgba(245, 245, 245, 0.973);
+    font-family: Arial, Helvetica, sans-serif
 }
 
 .form {
@@ -363,8 +422,11 @@ footer {
 }
 
 input {
-    text-indent: 5px;
+    text-indent: 10px;
+    height: 50%;
+    width: 100%;
 }
+
 
 
 .closeModal {
@@ -403,6 +465,16 @@ input {
     border-radius: 2px;
     outline: transparent;
     border: transparent;
+    background-color: rgba(21, 34, 75, .85);
+    color: white;
+}
+
+.addButt:hover {
+    transform: scale(1.1);
+    transition:  ease-out .2s;
+    background-color: white;
+    color: black;
+    
 }
 
 .removeButt {
@@ -413,5 +485,30 @@ input {
     height: 50%;
     border-radius: 2px;
     outline: transparent;
+    background-color: rgba(21, 34, 75, .85);
+    color: white;
     border: transparent;
+}
+
+.removeButt:hover {
+    transform: scale(1.1);
+    transition:  ease-out .2s;
+    background-color: white;
+    color: black;
+    
+}
+
+
+
+.closeModal {
+    background-color: rgba(42, 21, 75, .85);
+    color: white;
+    border: transparent;
+}
+
+.closeModal:hover {
+    transform: scale(1.1);
+    transition:  ease-out .2s;
+    background-color: white;
+    color: black;
 }
