@@ -370,19 +370,38 @@ footer {
     
 }
 
-.modal {
-        display: none;
-        position: fixed;
-        background-color: rgba(48, 143, 75, 1);
-        border-radius: 5px;
-        z-index: 100;
-        width: 325px;
-        height: 60vh;
-        z-index: 1; 
-        top: 10%;
-        box-shadow: 0px 0px 50px rgba(0, 0, 0, 1); 
-        place-self: center center;
+@media screen and (max-height: 400px) {
+    .modal {
+            display: none;
+            position: fixed;
+            background-color: rgba(48, 143, 75, 1);
+            border-radius: 5px;
+            z-index: 100;
+            width: 325px;
+            height: 80vh;
+            z-index: 1; 
+            top: 10%;
+            box-shadow: 0px 0px 50px rgba(0, 0, 0, 1); 
+            place-self: center center;
+    }
 }
+
+@media screen and (min-height: 401px) {
+    .modal {
+            display: none;
+            position: fixed;
+            background-color: rgba(48, 143, 75, 1);
+            border-radius: 5px;
+            z-index: 100;
+            width: 325px;
+            height: 60vh;
+            z-index: 1; 
+            top: 10%;
+            box-shadow: 0px 0px 50px rgba(0, 0, 0, 1); 
+            place-self: center center;
+    }
+}
+
 
 
 
