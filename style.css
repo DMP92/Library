@@ -8,21 +8,21 @@ width: 100%;
 background-color: #000000;
 vertical-align: center;
 display: grid;
-
+justify-items: center;
 }
 
 
 
 
     .pageContainer {
-        background-image: url("data:image/svg+xml,%3Csvg width='44' height='12' viewBox='0 0 44 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 12v-2L0 0v10l4 2h16zm18 0l4-2V0L22 10v2h16zM20 0v8L4 0h16zm18 0L22 8V0h16z' fill='%23154b3e' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");width: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='44' height='12' viewBox='0 0 44 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 12v-2L0 0v10l4 2h16zm18 0l4-2V0L22 10v2h16zM20 0v8L4 0h16zm18 0L22 8V0h16z' fill='%23154b3e' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+        width: 100%;
         background-attachment: fixed;
-
         position: relative;
         display: grid;
         grid-gap: 50px;
         grid-template-columns: 100%;
-        grid-template-rows: 60px 1fr 60px;
+        grid-template-rows: 60px auto 60px !important;
         grid-template-areas: 
                     "header"
                     "books"
@@ -32,8 +32,8 @@ display: grid;
         align-items: center;
         width: 100%;
         min-height: auto !important;
-        
     }
+
 
 
 
@@ -233,12 +233,12 @@ display: grid;
         grid-area: "books";
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
-        grid-template-rows: repeat(auto-fit, minmax(250px, 1fr)) !important;
+        grid-template-rows: repeat(auto-fit, 250px) !important;
         grid-gap: 20px;
         width: calc(100% - 50px);
         place-items: center center;
         place-content: center center;
-        height: 100%;
+        height: auto !important;
     }
 }
 
@@ -251,10 +251,10 @@ display: grid;
         grid-area: "books";
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
-        grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-rows: repeat(auto-fit, 250px) !important;
         grid-gap: 20px;
         width: calc(100% - 50px);
-        height: 100%;
+        height: auto !important;
         place-items: center center;
         place-content: center center;
         
@@ -266,46 +266,107 @@ display: grid;
 .exampleBook  {
     background-color: rgba(48, 143, 75, 0.898);
     place-self: stretch stretch;
+    grid-area: "books";
+    text-align: center;    
+    color: black;
+    border-radius: 1%;
+    display: grid;
+    grid-template-areas: 
+                    "close"
+                    "title"
+                    "author"
+                    "pages"
+                    "buttons";
+    grid-template-columns: 100%;
+    height: 250px;
+    width: 100%;
+    grid-template-rows: 10% 40% 20% 10% 20%;
+    box-shadow: 0px 0px 10px black;
+}
+
+
+
+.JavaBook  {
+    background-color: rgba(48, 143, 75, 0.898);
+    place-self: stretch stretch;
     
     text-align: center;    
     color: black;
     border-radius: 1%;
     display: grid;
     grid-template-areas: 
+                    "close"
                     "title"
                     "author"
                     "pages"
-                    "summary"
                     "buttons";
     grid-template-columns: 100%;
     height: 100%;
     width: 100%;
-    grid-template-rows: 20% 20% 10% 38% 12%;
+    grid-template-rows: 5% 35% 20% 10% 12%;
+    box-shadow: 0px 0px 10px black;
+}
+
+.close {
+    grid-area: "close";
+    display: flex;
+    justify-content: end;
+    width: 98%;
+    height: 100%;
+    grid-row: 0 / 1;
+    place-items: center end;
+    place-content: center end;
+   
+}
+
+.x {
+    place-items: center center;
+    height: 80%;
+    width: 40px;
+    margin-top: 1.75%;
+    justify-self: end;
+    border-radius: 2px;
+    outline: transparent;
+    border: transparent;
+    background-color: rgba(42, 21, 75, .85);
+    color: white;
+}
+
+.x:hover {
+    transform: scale(1.1);
+    transition:  ease-out .2s;
+    background-color: white;
+    color: black;
 }
 
 .title {
     font-family: 'Roboto';
     grid-area: "title";
     place-self: center center;
+    margin-top: 15%;
+    font-size: 20px;
 }
 
 .author {
     font-family: 'Roboto';
     grid-area: "author";
     place-self: center center;
+    font-size: 15px;
+    place-self: center center;
 }
 
 .pages {
     font-family: 'Roboto';
     grid-area: "pages";
-    place-self: center center;
+    place-self: end center;
+    font-size: 10px;
 }
 
-.summary {
+/* .summary {
     font-family: 'Roboto';
     grid-area: "summary";
-    place-self: center center;
-}
+    place-self: end center;
+} */
 
 .buttonCont {
     font-family: 'Roboto';
@@ -314,7 +375,7 @@ display: grid;
     justify-items: space-around;
     grid-gap: 10px;
     margin: 5px;
-    
+    grid-row: 5 / 6;
 }
 
 .read {
@@ -526,6 +587,7 @@ input {
 }
 
 .closeModal:hover {
+    
     transform: scale(1.1);
     transition:  ease-out .2s;
     background-color: white;

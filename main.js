@@ -1,41 +1,101 @@
+
+let bookShelf = document.querySelector('.bookDisplay');
+let book = bookShelf.querySelectorAll('.exampleBook');
+let title = bookShelf.querySelectorAll('.title');
+let author = bookShelf.querySelectorAll('.author');
+let pages = bookShelf.querySelectorAll('.pages');
+let addBook = document.querySelector('.addButt');
+
+// Selectors for book printing
+let bookTemplate = document.querySelector('.bookDisplay');
+let tempTitle = bookTemplate.querySelector('.title');
+let tempAuthor = bookTemplate.querySelector('.author');
+let tempPages = bookTemplate.querySelector('.pages');
+
+
+
+
+
 let myLibrary = [];
 
 function Book(name, author, pages) {
     this.name = name,
-        this.author = author,
-        this.pages = pages,
-        this.summary
-    }
-    
-    let bookShelf = document.querySelector('.bookDisplay');
-    let book = bookShelf.querySelectorAll('.exampleBook');
-    let title = bookShelf.querySelectorAll('.title');
-    let author = bookShelf.querySelectorAll('.author');
-    let pages = bookShelf.querySelectorAll('.pages');
-let addBook = document.querySelector('.addButt');
-addBook.addEventListener('click', addBookToLibrary);
+    this.author = author,
+    this.pages = pages,
+    this.summary
+}
+
 
 myLibrary.push(book);
 console.log(myLibrary);
+
+addBook.addEventListener('click', addBookToLibrary);
 
 function addBookToLibrary() {
     let name = document.querySelector('.bookTitle').value;
     let author = document.querySelector('.bookAuthor').value;
     let pages = document.querySelector('.bookPages').value;
     let newBook = new Book(name, author, pages);
-
+    publishBook(`${name}`, author, pages);
+    console.log(newBook);
     
-    name.value = '0';
-    author.value = '' ;
-    pages.value = '' ;
-
     myLibrary.unshift(newBook);
     console.log(newBook);
     console.log(myLibrary);
 }
 
 
+function publishBook(name, author, pages) {
+    // book to display div
+    let bookShelf = document.querySelector('.bookDisplay');
+    let bookCreate = document.createElement('div');
+    bookCreate.classList.add('exampleBook')
+    // close button
+    let trashBook = document.createElement('div');
+    trashBook.classList.add('close');
+    
+    let trashButton = document.createElement('button');
+    trashButton.classList.add('x');
+    trashButton.textContent = 'x';
+    
+    // Title of Book
+    let tempTitle = document.createElement('h1');
+    tempTitle.classList.add('title');
+    tempTitle.textContent = name;
+    // Author of Book
+    let tempAuthor = document.createElement('h3');
+    tempAuthor.classList.add('author');
+    tempAuthor.textContent = author;
+    // Number of Pages
+    let tempPages = document.createElement('h3');
+    tempPages.classList.add('pages');
+    tempPages.textContent = 'Pages: ' + pages;
+    // Container div for buttons
+    let tempBtnCont = document.createElement('div');
+    tempBtnCont.classList.add('buttonCont')
+    // "read" button
+    let tempRead = document.createElement('button');
+    tempRead.classList.add('read');
+    tempRead.textContent = 'Read';
+    // "unread" button
+    let tempUnRead = document.createElement('button');
+    tempUnRead.classList.add('unread');
+    tempUnRead.textContent = 'Unread';
 
+    bookShelf.appendChild(bookCreate);
+    bookCreate.appendChild(trashBook);
+    trashBook.appendChild(trashButton);
+    bookCreate.appendChild(tempTitle);
+    bookCreate.appendChild(tempAuthor);
+    bookCreate.appendChild(tempPages);
+    bookCreate.appendChild(tempBtnCont);
+
+    tempBtnCont.appendChild(tempUnRead);
+    tempBtnCont.appendChild(tempRead);
+
+    
+
+}
 
 // (function stockShelf(title, author, pages) {
 //     for (let i = 0; i = book; i++) {
@@ -47,7 +107,7 @@ function addBookToLibrary() {
 
 
 
-// Modal Menu
+// Modal Menu animations & functionality
 
 var clicked = false;
 let pageContainer = document.querySelector('.pageContainer');
@@ -91,3 +151,4 @@ modalClose.addEventListener('click', function() {
 })
 
 // ----------------
+
