@@ -264,11 +264,13 @@ justify-items: center;
 /* Styling for book objects */
 
 .exampleBook  {
-    background-color: rgba(48, 143, 75, 0.898);
+    background: linear-gradient(125deg, rgb(183, 138, 161), rgba(138, 155, 183, 0) 85%),
+    linear-gradient(45deg, rgba(48, 143, 75, 0.898), rgba(48, 143, 75, 0) 85%),
+    linear-gradient(285deg, rgb(41, 145, 161), rgba(52, 93, 99, 0) 85% );
     place-self: stretch stretch;
     grid-area: "books";
     text-align: center;    
-    color: black;
+    color: white;
     border-radius: 1%;
     display: grid;
     grid-template-areas: 
@@ -330,6 +332,7 @@ justify-items: center;
     border: transparent;
     background-color: rgba(42, 21, 75, .85);
     color: white;
+    z-index: 10;
 }
 
 .x:hover {
@@ -502,7 +505,7 @@ footer {
 }
 
 input {
-    text-indent: 10px;
+    text-indent: 15px;
     height: 50%;
     width: 100%;
 }

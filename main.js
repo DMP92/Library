@@ -1,12 +1,15 @@
-
+let pageContainer = document.querySelector('.pageContainer');   
 let bookShelf = document.querySelector('.bookDisplay');
 let book = bookShelf.querySelectorAll('.exampleBook');
 let title = bookShelf.querySelectorAll('.title');
 let author = bookShelf.querySelectorAll('.author');
 let pages = bookShelf.querySelectorAll('.pages');
 let addBook = document.querySelector('.addButt');
+let book1 = document.getElementById('exampleBook1');
+let book2 = document.getElementById('exampleBook2');
 
 // Selectors for book printing
+
 let bookTemplate = document.querySelector('.bookDisplay');
 let tempTitle = bookTemplate.querySelector('.title');
 let tempAuthor = bookTemplate.querySelector('.author');
@@ -15,37 +18,63 @@ let tempPages = bookTemplate.querySelector('.pages');
 
 
 
+// Functions to add books to display =========================================
 
 let myLibrary = [];
+
+
 
 function Book(name, author, pages) {
     this.name = name,
     this.author = author,
-    this.pages = pages,
-    this.summary
+    this.pages = pages
 }
 
+let aliens = new Book("Aliens", "Flabber", 240);
+let bible = new Book("The Bible", "God", 1350);
+let coding = new Book("Eloquent JavaScript", "Marjin Haverbeke", 450); 
+let oceans = new Book("Oceanic", "Paige Ruthe", 544);
 
-myLibrary.push(book);
-console.log(myLibrary);
+myLibrary.unshift(aliens);
+myLibrary.push(oceans);
+myLibrary.push(bible);
+myLibrary.push(coding);
 
-addBook.addEventListener('click', addBookToLibrary);
+publishBook(aliens);
+publishBook(oceans);
+publishBook(bible);
+publishBook(coding);
+
 
 function addBookToLibrary() {
     let name = document.querySelector('.bookTitle').value;
     let author = document.querySelector('.bookAuthor').value;
     let pages = document.querySelector('.bookPages').value;
+
     let newBook = new Book(name, author, pages);
-    publishBook(`${name}`, author, pages);
-    console.log(newBook);
     
-    myLibrary.unshift(newBook);
-    console.log(newBook);
+    myLibrary.push(newBook);
+    publishBook(newBook);
+
+let closeBook = document.querySelectorAll('.close');
+let trashButton = document.querySelectorAll('.x');
+
+trashButton.forEach(button => button.addEventListener('click', hidden));
+    console.log(trashButton);
     console.log(myLibrary);
+
+
 }
 
+addBook.addEventListener('click', addBookToLibrary);
 
-function publishBook(name, author, pages) {
+
+function publishBook(book) {
+
+    let name = book.name;
+    let author = book.author;
+    let pages = book.pages;
+
     // book to display div
     let bookShelf = document.querySelector('.bookDisplay');
     let bookCreate = document.createElement('div');
@@ -92,31 +121,27 @@ function publishBook(name, author, pages) {
 
     tempBtnCont.appendChild(tempUnRead);
     tempBtnCont.appendChild(tempRead);
-
-    
-
 }
 
-// (function stockShelf(title, author, pages) {
-//     for (let i = 0; i = book; i++) {
-        
-//     }
-//     let newBook = new Book(title, author, pages);
-//     myLibrary.push(newBook);
-// })();
 
 
 
-// Modal Menu animations & functionality
+
+// Function to keep library updated constantly ==================================================
+
+
+
+// Modal Menu animations & functionality ======================================================
 
 var clicked = false;
-let pageContainer = document.querySelector('.pageContainer');
 let modalButton = document.querySelector('.linedNavDiv');
 let modalPop = document.querySelector('.modal');
 let modalClose = document.querySelector('.closeModal');
 let line1 = document.querySelector('.linedNav1');
 let line2 = document.querySelector('.linedNav2');
 let line3 = document.querySelector('.linedNav3');
+
+
 
 modalButton.addEventListener('click', function() {
     if (clicked == false) {
@@ -148,7 +173,70 @@ modalClose.addEventListener('click', function() {
         clicked = false;
 
 
-})
+});
 
 // ----------------
+
+
+
+
+// function stockShelves() {
+//     let i = 0;
+  
+//       for (let i = 0; i < myLibrary.length; i++) {
+//           let name = myLibrary[i].name;
+//            let author = myLibrary[i].author;
+//            let pages = myLibrary[i].pages;
+       
+//            publishBook(name, author, pages);
+       
+//         console.log(myLibrary[i].name);
+//            console.log(myLibrary[i].author);
+//            console.log(myLibrary[i].pages);
+//       } 
+ 
+// };
+// stockShelves();
+
+
+
+
+// if I create a way to give each nodelist item a number that corresponds to their index
+// I should then be able to take that number and access the myLibrary array and delete that specific item
+
+
+
+
+
+
+
+
+
+let closeBook = document.querySelectorAll('.close');
+let trashButton = document.querySelectorAll('.x');
+
+trashButton.forEach(button => button.addEventListener('click', hidden));
+// NOTATING FOR FUTURE SELF ================= HOW TO PRINT SPECIFIC INDICES OF NODE ITEMS
+
+function hidden(e) {
+    
+    for (var i = 0; i < trashButton.length; i++) {
+        (function(i) {
+            trashButton[i].index = i;
+
+            trashButton[i].addEventListener('click', function() {
+               
+            });
+        })(i);
+    }
+    console.log(this.index);
+    myLibrary.splice(this.index, 1);
+    console.log(myLibrary);
+    
+}
+
+// ============================================================================
+
+
+
 
