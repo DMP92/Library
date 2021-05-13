@@ -40,41 +40,36 @@ myLibrary.push(oceans);
 myLibrary.push(bible);
 myLibrary.push(coding);
 
-publishBook(aliens);
-publishBook(oceans);
-publishBook(bible);
-publishBook(coding);
+ publishBook(aliens);
+ publishBook(oceans);
+ publishBook(bible);
+ publishBook(coding);
 
 
 function addBookToLibrary() {
     let name = document.querySelector('.bookTitle').value;
     let author = document.querySelector('.bookAuthor').value;
     let pages = document.querySelector('.bookPages').value;
-
+    
     let newBook = new Book(name, author, pages);
     
     myLibrary.push(newBook);
     publishBook(newBook);
-
-let closeBook = document.querySelectorAll('.close');
-let trashButton = document.querySelectorAll('.x');
-
-trashButton.forEach(button => button.addEventListener('click', hidden));
-    console.log(trashButton);
-    console.log(myLibrary);
-
-
+    
+    
+    
+    
 }
 
 addBook.addEventListener('click', addBookToLibrary);
 
 
 function publishBook(book) {
-
+    
     let name = book.name;
     let author = book.author;
     let pages = book.pages;
-
+    
     // book to display div
     let bookShelf = document.querySelector('.bookDisplay');
     let bookCreate = document.createElement('div');
@@ -110,7 +105,7 @@ function publishBook(book) {
     let tempUnRead = document.createElement('button');
     tempUnRead.classList.add('unread');
     tempUnRead.textContent = 'Unread';
-
+    
     bookShelf.appendChild(bookCreate);
     bookCreate.appendChild(trashBook);
     trashBook.appendChild(trashButton);
@@ -118,16 +113,26 @@ function publishBook(book) {
     bookCreate.appendChild(tempAuthor);
     bookCreate.appendChild(tempPages);
     bookCreate.appendChild(tempBtnCont);
-
+    
     tempBtnCont.appendChild(tempUnRead);
     tempBtnCont.appendChild(tempRead);
+    
+    
+    let trashButt = document.querySelectorAll('.x');
+    console.table(trashButt);
+    trashButt.forEach(butt => butt.addEventListener('click', hidden));
 }
 
 
 
 
-
+function trashCollector() {
+    let trashButton = document.querySelectorAll('.x');
+    
+    trashButton.forEach(buttons => buttons.addEventListener('click', hidden))
+}
 // Function to keep library updated constantly ==================================================
+
 
 
 
@@ -177,66 +182,53 @@ modalClose.addEventListener('click', function() {
 
 // ----------------
 
+// I thought I would need this loop, but honestly it slows the page down too much
+// even with the window event listener. Figured if it only loaded once 
+// it'd slow it down, but it only helped speed the page up slightly. Infinite loops 
+// don't seem to ever be a good idea
 
-
-
+// window.addEventListener('load', stockShelves);
 // function stockShelves() {
-//     let i = 0;
+//      let i = 0;
   
-//       for (let i = 0; i < myLibrary.length; i++) {
-//           let name = myLibrary[i].name;
-//            let author = myLibrary[i].author;
-//            let pages = myLibrary[i].pages;
+//      for (let i = 0; i < myLibrary.length; i++) {
+         
+//         publishBook(myLibrary[i]);
        
-//            publishBook(name, author, pages);
        
-//         console.log(myLibrary[i].name);
-//            console.log(myLibrary[i].author);
-//            console.log(myLibrary[i].pages);
 //       } 
- 
-// };
-// stockShelves();
-
-
-
-
-// if I create a way to give each nodelist item a number that corresponds to their index
-// I should then be able to take that number and access the myLibrary array and delete that specific item
-
-
-
-
-
+//   };
 
 
 
 
 let closeBook = document.querySelectorAll('.close');
-let trashButton = document.querySelectorAll('.x');
+let trashButt = document.querySelectorAll('.x');
 
-trashButton.forEach(button => button.addEventListener('click', hidden));
+trashButt.forEach(button => button.addEventListener('click', hidden));
 // NOTATING FOR FUTURE SELF ================= HOW TO PRINT SPECIFIC INDICES OF NODE ITEMS
 
 function hidden(e) {
-    
-    for (var i = 0; i < trashButton.length; i++) {
+    let bookShelf = document.querySelectorAll('.bookDisplay');
+    let bookCreate = document.querySelectorAll('.exampleBook');
+    // close button
+    let trashBook = document.querySelectorAll('.close');
+    let trashButt = document.querySelectorAll('.x');
+   
+      
+    for (var i=0; i<trashButt.length; i++) {
         (function(i) {
-            trashButton[i].index = i;
+            trashButt[i].index = i;
 
-            trashButton[i].addEventListener('click', function() {
+            trashButt[i].addEventListener('click', function() {
                
             });
         })(i);
+        
     }
     console.log(this.index);
-    myLibrary.splice(this.index, 1);
-    console.log(myLibrary);
-    
+    document.querySelector('.bookDisplay').removeChild(bookCreate[this.index]);
 }
 
 // ============================================================================
-
-
-
 

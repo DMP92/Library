@@ -264,9 +264,7 @@ justify-items: center;
 /* Styling for book objects */
 
 .exampleBook  {
-    background: linear-gradient(125deg, rgb(183, 138, 161), rgba(138, 155, 183, 0) 85%),
-    linear-gradient(45deg, rgba(48, 143, 75, 0.898), rgba(48, 143, 75, 0) 85%),
-    linear-gradient(285deg, rgb(41, 145, 161), rgba(52, 93, 99, 0) 85% );
+    background: rgba(41, 145, 161, .8);
     place-self: stretch stretch;
     grid-area: "books";
     text-align: center;    
@@ -434,7 +432,7 @@ footer {
     
 }
 
-@media screen and (max-height: 400px) {
+@media screen and (max-width: 500px) {
     .modal {
             display: none;
             position: fixed;
@@ -442,7 +440,7 @@ footer {
             border-radius: 5px;
             z-index: 100;
             width: 325px;
-            height: 80vh;
+            height: 400px;
             z-index: 1; 
             top: 10%;
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 1); 
@@ -450,15 +448,15 @@ footer {
     }
 }
 
-@media screen and (min-height: 401px) {
+@media screen and (min-width: 501px) {
     .modal {
             display: none;
             position: fixed;
             background-color: rgba(48, 143, 75, 1);
             border-radius: 5px;
             z-index: 100;
-            width: 325px;
-            height: 60vh;
+            width: 400px;
+            height: 450px;
             z-index: 1; 
             top: 10%;
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 1); 
