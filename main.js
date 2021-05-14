@@ -30,6 +30,21 @@ function Book(name, author, pages) {
     this.pages = pages
 }
 
+Book.prototype = {
+    unread: function (index) {
+       
+       let book = document.querySelectorAll(".exampleBook");
+       book.item(index).style.cssText = "-webkit-filter: grayscale(100%);"
+        
+    },
+
+    read: function (index) {
+        let book = document.querySelectorAll('.exampleBook');
+        book.item(index).style.cssText = "-webkit-filter: grayscale(0%);"
+
+    }
+}
+
 let aliens = new Book("Aliens", "Flabber", 240);
 let bible = new Book("The Bible", "God", 1350);
 let coding = new Book("Eloquent JavaScript", "Marjin Haverbeke", 450); 
@@ -102,9 +117,9 @@ function publishBook(book) {
     tempRead.classList.add('read');
     tempRead.textContent = 'Read';
     // "unread" button
-    let tempUnRead = document.createElement('button');
-    tempUnRead.classList.add('unread');
-    tempUnRead.textContent = 'Unread';
+    let tempUnread = document.createElement('button');
+    tempUnread.classList.add('unread');
+    tempUnread.textContent = 'Unread';
     
     bookShelf.appendChild(bookCreate);
     bookCreate.appendChild(trashBook);
@@ -114,13 +129,18 @@ function publishBook(book) {
     bookCreate.appendChild(tempPages);
     bookCreate.appendChild(tempBtnCont);
     
-    tempBtnCont.appendChild(tempUnRead);
+    tempBtnCont.appendChild(tempUnread);
     tempBtnCont.appendChild(tempRead);
     
     
     let trashButt = document.querySelectorAll('.x');
     console.table(trashButt);
+    
+    let read = document.querySelectorAll('.read');
+    let unread = document.querySelectorAll('.unread');
     trashButt.forEach(butt => butt.addEventListener('click', hidden));
+    read.forEach(button => button.addEventListener('click', normalize));
+    unread.forEach(button => button.addEventListener('click', grayScale));
 }
 
 
@@ -205,14 +225,12 @@ modalClose.addEventListener('click', function() {
 let closeBook = document.querySelectorAll('.close');
 let trashButt = document.querySelectorAll('.x');
 
-trashButt.forEach(button => button.addEventListener('click', hidden));
 // NOTATING FOR FUTURE SELF ================= HOW TO PRINT SPECIFIC INDICES OF NODE ITEMS
 
-function hidden(e) {
-    let bookShelf = document.querySelectorAll('.bookDisplay');
+function hidden() {
+    
     let bookCreate = document.querySelectorAll('.exampleBook');
     // close button
-    let trashBook = document.querySelectorAll('.close');
     let trashButt = document.querySelectorAll('.x');
    
       
@@ -227,8 +245,49 @@ function hidden(e) {
         
     }
     console.log(this.index);
+    myLibrary.splice(this.index, 1);
     document.querySelector('.bookDisplay').removeChild(bookCreate[this.index]);
 }
 
 // ============================================================================
 
+// Read and UnRead functionality
+let unread = document.querySelectorAll('.unread');
+let read = document.querySelectorAll('.read');
+
+
+
+
+function grayScale() {
+let unread = document.querySelectorAll('.unread');
+console.log(myLibrary);
+console.log(unread);
+
+for (var i=0; i<unread.length; i++) {    
+    (function(i) {
+        unread[i].index = i;
+        
+        unread[i].addEventListener('click', function() {
+            
+        });
+    })(i);
+}
+console.log(myLibrary[this.index]);
+myLibrary[this.index].unread(this.index);
+    
+}
+
+function normalize() {
+let read = document.querySelectorAll('.read');
+    for (var i=0; i<read.length; i++) {
+        (function(i) {
+            read[i].index = i;
+
+            read[i].addEventListener('click', function() {
+               
+            });
+        })(i);
+        
+    }
+    myLibrary[this.index].read(this.index);
+}

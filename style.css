@@ -285,7 +285,6 @@ justify-items: center;
 }
 
 
-
 .JavaBook  {
     background-color: rgba(48, 143, 75, 0.898);
     place-self: stretch stretch;
@@ -416,6 +415,9 @@ justify-items: center;
     width: 50%;
     height: 90%;
 }
+
+
+
 
 /* Footer styling */
 
@@ -594,3 +596,4 @@ input {
     background-color: white;
     color: black;
 }
+
