@@ -1,3 +1,7 @@
+
+
+
+
 let pageContainer = document.querySelector('.pageContainer');   
 let bookShelf = document.querySelector('.bookDisplay');
 let book = bookShelf.querySelectorAll('.exampleBook');
@@ -14,9 +18,6 @@ let bookTemplate = document.querySelector('.bookDisplay');
 let tempTitle = bookTemplate.querySelector('.title');
 let tempAuthor = bookTemplate.querySelector('.author');
 let tempPages = bookTemplate.querySelector('.pages');
-
-
-
 
 // Functions to add books to display =========================================
 
@@ -288,3 +289,28 @@ let read = document.querySelectorAll('.read');
     }
     myLibrary[this.index].read(this.index);
 }
+
+
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+// Initialize Firebase
+
+// get elements 
+var getBook = document.querySelectorAll('.exampleBook');
+
+// firebase send off
+function fireBaseSend() {
+    
+    var task = storageRef.put(book);
+}
+
+// push added books to storage
+addBook.addEventListener('click', fireBaseSend);
+
+// get books
+var getBook = document.querySelectorAll('.exampleBook');
+
+var storageRef = firebase.storage().ref('books' + book.name);
+
+
+
