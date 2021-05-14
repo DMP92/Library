@@ -134,7 +134,6 @@ function publishBook(book) {
     
     
     let trashButt = document.querySelectorAll('.x');
-    console.table(trashButt);
     
     let read = document.querySelectorAll('.read');
     let unread = document.querySelectorAll('.unread');
@@ -260,8 +259,7 @@ let read = document.querySelectorAll('.read');
 
 function grayScale() {
 let unread = document.querySelectorAll('.unread');
-console.log(myLibrary);
-console.log(unread);
+
 
 for (var i=0; i<unread.length; i++) {    
     (function(i) {
@@ -272,7 +270,6 @@ for (var i=0; i<unread.length; i++) {
         });
     })(i);
 }
-console.log(myLibrary[this.index]);
 myLibrary[this.index].unread(this.index);
     
 }
