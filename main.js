@@ -1,6 +1,5 @@
 
-
-
+  
 
 let pageContainer = document.querySelector('.pageContainer');   
 let bookShelf = document.querySelector('.bookDisplay');
@@ -25,10 +24,11 @@ let myLibrary = [];
 
 
 
-function Book(name, author, pages) {
+function Book(name, author, pages, status) {
     this.name = name,
     this.author = author,
-    this.pages = pages
+    this.pages = pages,
+    this.status = status
 }
 
 Book.prototype = {
@@ -51,36 +51,35 @@ let bible = new Book("The Bible", "God", 1350);
 let coding = new Book("Eloquent JavaScript", "Marjin Haverbeke", 450); 
 let oceans = new Book("Oceanic", "Paige Ruthe", 544);
 
-myLibrary.unshift(aliens);
-myLibrary.push(oceans);
-myLibrary.push(bible);
-myLibrary.push(coding);
 
- publishBook(aliens);
- publishBook(oceans);
- publishBook(bible);
- publishBook(coding);
 
 
 function addBookToLibrary() {
-    let name = document.querySelector('.bookTitle').value;
-    let author = document.querySelector('.bookAuthor').value;
-    let pages = document.querySelector('.bookPages').value;
+
+// below code adds items to the firestore database
+
+    db.collection('books').add({
+        name: document.querySelector('.bookTitle').value,
+        author: document.querySelector('.bookAuthor').value,
+        pages: document.querySelector('.bookPages').value,
+        status: 'read'
+        
+    })
     
-    let newBook = new Book(name, author, pages);
     
-    myLibrary.push(newBook);
-    publishBook(newBook);
+    // let newBook = new Book(name, author, pages);
     
-    
-    
-    
+    // myLibrary.push(newBook);
+    // publishBook(newBook);
+        document.querySelector('.bookTitle').value = '';
+        document.querySelector('.bookAuthor').value = '';
+        document.querySelector('.bookPages').value = '';
 }
 
 addBook.addEventListener('click', addBookToLibrary);
 
 
-function publishBook(book) {
+function publishBook(book, id) {
     
     let name = book.name;
     let author = book.author;
@@ -122,6 +121,9 @@ function publishBook(book) {
     tempUnread.classList.add('unread');
     tempUnread.textContent = 'Unread';
     
+    
+    bookCreate.setAttribute('data-id', id);
+
     bookShelf.appendChild(bookCreate);
     bookCreate.appendChild(trashBook);
     trashBook.appendChild(trashButton);
@@ -133,7 +135,7 @@ function publishBook(book) {
     tempBtnCont.appendChild(tempUnread);
     tempBtnCont.appendChild(tempRead);
     
-    
+
     let trashButt = document.querySelectorAll('.x');
     
     let read = document.querySelectorAll('.read');
@@ -141,6 +143,7 @@ function publishBook(book) {
     trashButt.forEach(butt => butt.addEventListener('click', hidden));
     read.forEach(button => button.addEventListener('click', normalize));
     unread.forEach(button => button.addEventListener('click', grayScale));
+    
 }
 
 
@@ -227,7 +230,7 @@ let trashButt = document.querySelectorAll('.x');
 
 // NOTATING FOR FUTURE SELF ================= HOW TO PRINT SPECIFIC INDICES OF NODE ITEMS
 
-function hidden() {
+function hidden(e) {
     
     let bookCreate = document.querySelectorAll('.exampleBook');
     // close button
@@ -247,6 +250,14 @@ function hidden() {
     console.log(this.index);
     myLibrary.splice(this.index, 1);
     document.querySelector('.bookDisplay').removeChild(bookCreate[this.index]);
+    
+    // below code will delete items from firestore
+    e.stopPropagation();
+    // the 'let id' line targets the item in the firestore
+    let id = e.target.closest('.exampleBook').getAttribute('data-id');
+
+    // this line deletes the item we selected in the line above
+    db.collection('books').doc(id).delete();
 }
 
 // ============================================================================
@@ -258,59 +269,184 @@ let read = document.querySelectorAll('.read');
 
 
 
-function grayScale() {
-let unread = document.querySelectorAll('.unread');
+function grayScale(snapshot) {
 
+    
 
-for (var i=0; i<unread.length; i++) {    
-    (function(i) {
-        unread[i].index = i;
+        let unread = document.querySelectorAll('.unread');
         
-        unread[i].addEventListener('click', function() {
-            
-        });
-    })(i);
-}
-myLibrary[this.index].unread(this.index);
+        for (var i=0; i<unread.length; i++) {    
+            (function(i) {
+                unread[i].index = i;
+                
+                unread[i].addEventListener('click', function() {
+                    
+                });
+            })(i);
+        }
+        myLibrary[this.index].unread(this.index);
+        
+    
     
 }
 
-function normalize() {
-let read = document.querySelectorAll('.read');
-    for (var i=0; i<read.length; i++) {
-        (function(i) {
-            read[i].index = i;
+function normalize(status) {
 
-            read[i].addEventListener('click', function() {
-               
+    
+
+        let read = document.querySelectorAll('.read');
+            for (var i=0; i<read.length; i++) {
+                (function(i) {
+                    read[i].index = i;
+        
+                    read[i].addEventListener('click', function() {
+                       
+                    });
+                })(i);
+                
+            }
+            myLibrary[this.index].read(this.index);
+            db.collection('books').doc(this.index.id).update({
+                status: 'read'
             });
-        })(i);
-        
-    }
-    myLibrary[this.index].read(this.index);
-}
-
-
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-// Initialize Firebase
-
-// get elements 
-var getBook = document.querySelectorAll('.exampleBook');
-
-// firebase send off
-function fireBaseSend() {
     
-    var task = storageRef.put(book);
 }
 
-// push added books to storage
-addBook.addEventListener('click', fireBaseSend);
 
-// get books
-var getBook = document.querySelectorAll('.exampleBook');
 
-var storageRef = firebase.storage().ref('books' + book.name);
+
+// // get elements 
+// var getBook = document.querySelectorAll('.exampleBook');
+
+// // firebase send off
+// function fireBaseSend() {
+    
+//     var task = storageRef.put(book);
+// }
+
+// // push added books to storage
+// addBook.addEventListener('click', fireBaseSend);
+
+// // get books
+// var getBook = document.querySelectorAll('.exampleBook');
+
+// var storageRef = firebase.storage().ref('books' + book.name);
+
+
+// // Get a reference to the storage service, which is used to create references in your storage bucket
+// var storage = firebase.storage();
+
+// // Create a storage reference from our storage service
+// var storageRef = storage.ref();
+
+
+
+// the below code is a reference to the list of books on the page
+
+const bookList = document.querySelector('.bookDisplay');
+
+// create element and render book
+
+function renderBook(doc, id) {
+    let newBook = doc.data().name;
+    let name = document.createElement('h1');
+    let author = document.createElement('h3');
+    let pages = document.createElement('h3');
+    
+    
+
+
+    name.textContent = doc.data().name;
+    author.textContent = doc.data().author;
+    pages.textContent = doc.data().pages;
+    
+    newBook = new Book(
+    name.textContent = doc.data().name, 
+    author.textContent = doc.data().author, 
+    pages.textContent = doc.data().pages,
+    status = doc.data().status);
+
+    myLibrary.push(newBook);
+        
+    console.log(newBook);
+
+    
+    
+    
+
+    publishBook(newBook, id);
+}
+
+
+function search(nameKey){
+    for (var i=0; i < myLibrary.length; i++) {
+        if (myLibrary[i].name === nameKey) {
+            console.log(myLibrary[i]);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* the below text takes the firestore collection "books" and it then uses the 
+'.get()' method to get the data. BUT since it's not 
+automatic (asynchronous) JS will give error messages because 
+the JS document will process and require the data before it can retrieve it from
+the database. So, it then uses the ".then()" method. This method basically says
+after the data has been retrieved THEN proceed to execute the following code.
+
+the 'snapshot' is basically the copy of the data that we are accessing in our code.
+Once we get it we can use it how we need to, but you can log each chunk of data 
+to the console with the following code:
+
+    db.collection('books').get().then((snapshot) => {
+                    snapshot.docs.forEach(doc => {
+        console.log(doc.data());
+    })
+
+    the forEach method cycles through each document in the collection. Then,
+    the doc.data() causes it to appear in a way that makes sense to us.
+*/
+
+function colors(status) {
+    if (status == 'read') {
+        normalize();
+    } else if (status == 'unread') {
+        grayScale();
+    }
+}
+console.log(myLibrary);
+
+
+
+// saving grayscale and normalize status 
+db.collection('books').get().then(snapshot => {
+    snapshot.docs.forEach(snapshot => {
+        let status = snapshot.data().status;
+        
+         
+    })
+})
+
+
+// real-time listener 
+db.collection('books').onSnapshot(snapshot => {
+    let changes = snapshot.docChanges();
+    changes.forEach(change => {
+        if (change.type == 'added') {
+            renderBook(change.doc, change.doc.id);
+        } 
+    })
+})
+
 
 
 
