@@ -422,6 +422,8 @@ justify-items: center;
 /* Footer styling */
 
 footer {
+    font-family: Amatic SC !important;
+    color: #b3cde0;
     color: #b3cde0;
     grid-area: "outro";
     position: relative;
