@@ -424,7 +424,7 @@ justify-items: center;
 footer {
     font-family: Amatic SC !important;
     color: #b3cde0;
-    color: #b3cde0;
+    font-size: 15px;
     grid-area: "outro";
     position: relative;
     bottom: 0;
