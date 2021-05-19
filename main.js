@@ -174,7 +174,7 @@ let line3 = document.querySelector('.linedNav3');
 modalButton.addEventListener('click', function() {
     if (clicked == false) {
         clicked = true;
-        modalPop.style.cssText = "display: grid";
+        modalPop.style.cssText = "display: grid; place-self: center center;";
         line1.style.cssText = "background-color: white; animation-name: nav1Open; animation-duration: .5s; animation-fill-mode: forwards;"
         line2.style.cssText = "background-color: white; animation-name: nav2Open; animation-duration: .5s; animation-fill-mode: forwards;"
         line3.style.cssText = "background-color: white; animation-name: nav3Open; animation-duration: .5s; animation-fill-mode: forwards;"
