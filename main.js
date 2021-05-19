@@ -1,8 +1,8 @@
 
   
 
-let pageContainer = document.querySelector('.pageContainer');   
-let bookShelf = document.querySelector('.bookDisplay');
+ let pageContainer = document.querySelector('.pageContainer');   
+ let bookShelf = document.querySelector('.bookDisplay');
 let book = bookShelf.querySelectorAll('.exampleBook');
 let title = bookShelf.querySelectorAll('.title');
 let author = bookShelf.querySelectorAll('.author');
@@ -13,6 +13,7 @@ let book2 = document.getElementById('exampleBook2');
 
 // Selectors for book printing
 
+
 let bookTemplate = document.querySelector('.bookDisplay');
 let tempTitle = bookTemplate.querySelector('.title');
 let tempAuthor = bookTemplate.querySelector('.author');
@@ -21,6 +22,7 @@ let tempPages = bookTemplate.querySelector('.pages');
 // Functions to add books to display =========================================
 
 let myLibrary = [];
+
 
 
 
@@ -124,6 +126,11 @@ function publishBook(book, id) {
     
     bookCreate.setAttribute('data-id', id);
 
+    // if (status === 'unread') {
+    //     grayScale(bookCreate);  
+        
+    // }    
+
     bookShelf.appendChild(bookCreate);
     bookCreate.appendChild(trashBook);
     trashBook.appendChild(trashButton);
@@ -144,6 +151,8 @@ function publishBook(book, id) {
     read.forEach(button => button.addEventListener('click', normalize));
     unread.forEach(button => button.addEventListener('click', grayScale));
     
+       
+         
 }
 
 
@@ -269,9 +278,9 @@ let read = document.querySelectorAll('.read');
 
 
 
-function grayScale(snapshot) {
+function grayScale(e) {
 
-    
+
 
         let unread = document.querySelectorAll('.unread');
         
@@ -284,6 +293,12 @@ function grayScale(snapshot) {
                 });
             })(i);
         }
+        let objectToChange = unread[this.index].parentNode.parentNode;
+            let objId = objectToChange.getAttribute('data-id');
+            
+            db.collection('books').doc(objId).update({
+                status: 'unread'
+            });
         myLibrary[this.index].unread(this.index);
         
     
@@ -300,18 +315,21 @@ function normalize(status) {
                     read[i].index = i;
         
                     read[i].addEventListener('click', function() {
-                       
                     });
                 })(i);
                 
             }
-            myLibrary[this.index].read(this.index);
-            db.collection('books').doc(this.index.id).update({
+            let objectToChange = read[this.index].parentNode.parentNode;
+            let objId = objectToChange.getAttribute('data-id');
+            
+            db.collection('books').doc(objId).update({
                 status: 'read'
             });
+            
+
+            myLibrary[this.index].read(this.index);
     
 }
-
 
 
 
@@ -368,7 +386,6 @@ function renderBook(doc, id) {
 
     myLibrary.push(newBook);
         
-    console.log(newBook);
 
     
     
@@ -416,14 +433,6 @@ to the console with the following code:
     the doc.data() causes it to appear in a way that makes sense to us.
 */
 
-function colors(status) {
-    if (status == 'read') {
-        normalize();
-    } else if (status == 'unread') {
-        grayScale();
-    }
-}
-console.log(myLibrary);
 
 
 
@@ -450,3 +459,37 @@ db.collection('books').onSnapshot(snapshot => {
 
 
 
+
+function rememberColor(file) {
+    let bookDoc = file.data().status;
+    let changed = file.id;
+
+    
+    
+    
+    
+    if(bookDoc === 'unread') {
+        
+        let junction = bookShelf.querySelectorAll('.exampleBook');
+        junction.forEach(pic => {
+            for(let i = 0; i < junction.length; i++) {
+                let pic = junction[i].getAttribute('data-id');
+
+                if(pic === changed) {
+                    let colorScheme = junction[i];
+                    colorScheme.style.cssText = '-webkit-filter: grayscale(100%);';
+                }
+            }
+        })
+    
+        
+    }
+
+}
+
+db.collection('books').get().then((snapshot) => {
+    snapshot.docs.forEach(file => {
+        rememberColor(file);
+    })
+
+})
