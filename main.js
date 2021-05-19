@@ -1,8 +1,5 @@
-
-  
-
- let pageContainer = document.querySelector('.pageContainer');   
- let bookShelf = document.querySelector('.bookDisplay');
+let pageContainer = document.querySelector('.pageContainer');   
+let bookShelf = document.querySelector('.bookDisplay');
 let book = bookShelf.querySelectorAll('.exampleBook');
 let title = bookShelf.querySelectorAll('.title');
 let author = bookShelf.querySelectorAll('.author');
@@ -22,9 +19,6 @@ let tempPages = bookTemplate.querySelector('.pages');
 // Functions to add books to display =========================================
 
 let myLibrary = [];
-
-
-
 
 function Book(name, author, pages, status) {
     this.name = name,
@@ -53,9 +47,6 @@ let bible = new Book("The Bible", "God", 1350);
 let coding = new Book("Eloquent JavaScript", "Marjin Haverbeke", 450); 
 let oceans = new Book("Oceanic", "Paige Ruthe", 544);
 
-
-
-
 function addBookToLibrary() {
 
 // below code adds items to the firestore database
@@ -77,8 +68,17 @@ function addBookToLibrary() {
         document.querySelector('.bookAuthor').value = '';
         document.querySelector('.bookPages').value = '';
 }
+  
+
 
 addBook.addEventListener('click', addBookToLibrary);
+
+
+
+
+
+
+
 
 
 function publishBook(book, id) {
@@ -126,11 +126,6 @@ function publishBook(book, id) {
     
     bookCreate.setAttribute('data-id', id);
 
-    // if (status === 'unread') {
-    //     grayScale(bookCreate);  
-        
-    // }    
-
     bookShelf.appendChild(bookCreate);
     bookCreate.appendChild(trashBook);
     trashBook.appendChild(trashButton);
@@ -150,10 +145,10 @@ function publishBook(book, id) {
     trashButt.forEach(butt => butt.addEventListener('click', hidden));
     read.forEach(button => button.addEventListener('click', normalize));
     unread.forEach(button => button.addEventListener('click', grayScale));
+}
+    
     
        
-         
-}
 
 
 
@@ -163,10 +158,6 @@ function trashCollector() {
     
     trashButton.forEach(buttons => buttons.addEventListener('click', hidden))
 }
-// Function to keep library updated constantly ==================================================
-
-
-
 
 // Modal Menu animations & functionality ======================================================
 
@@ -212,33 +203,31 @@ modalClose.addEventListener('click', function() {
 
 });
 
+
+let gooModal = document.querySelector('.googlemodal');
+
+window.onload = function() {
+    gooModal.style.cssText = 'display: grid';
+    pageContainer.style.cssText = 'transition: all 0.4s ease; -webkit-transform: scale(.99); -webkit-filter: blur(5px) grayscale(100%);';
+}
+
+let googButt = document.querySelector('.g-signin2');
+googButt.addEventListener('click', function() {
+    gooModal.style.cssText = 'display: none';
+    pageContainer.style.cssText = 'transition: all 0.4s ease; -webkit-transform: scale(1); -webkit-filter: blur(0px) grayscale(0%);';
+
+})
+
+
+
+
+
 // ----------------
-
-// I thought I would need this loop, but honestly it slows the page down too much
-// even with the window event listener. Figured if it only loaded once 
-// it'd slow it down, but it only helped speed the page up slightly. Infinite loops 
-// don't seem to ever be a good idea
-
-// window.addEventListener('load', stockShelves);
-// function stockShelves() {
-//      let i = 0;
-  
-//      for (let i = 0; i < myLibrary.length; i++) {
-         
-//         publishBook(myLibrary[i]);
-       
-       
-//       } 
-//   };
-
-
-
-
 let closeBook = document.querySelectorAll('.close');
 let trashButt = document.querySelectorAll('.x');
 
 // NOTATING FOR FUTURE SELF ================= HOW TO PRINT SPECIFIC INDICES OF NODE ITEMS
-
+                        
 function hidden(e) {
     
     let bookCreate = document.querySelectorAll('.exampleBook');
