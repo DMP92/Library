@@ -1,4 +1,4 @@
-let pageContainer = document.querySelector('.pageContainer');   
+let pageContainer = document.querySelector('.pageContainer');
 let bookShelf = document.querySelector('.bookDisplay');
 let book = bookShelf.querySelectorAll('.exampleBook');
 let title = bookShelf.querySelectorAll('.title');
@@ -22,17 +22,17 @@ let myLibrary = [];
 
 function Book(name, author, pages, status) {
     this.name = name,
-    this.author = author,
-    this.pages = pages,
-    this.status = status
+        this.author = author,
+        this.pages = pages,
+        this.status = status
 }
 
 Book.prototype = {
     unread: function (index) {
-       
-       let book = document.querySelectorAll(".exampleBook");
-       book.item(index).style.cssText = "-webkit-filter: grayscale(100%);"
-        
+
+        let book = document.querySelectorAll(".exampleBook");
+        book.item(index).style.cssText = "-webkit-filter: grayscale(100%);"
+
     },
 
     read: function (index) {
@@ -44,31 +44,31 @@ Book.prototype = {
 
 let aliens = new Book("Aliens", "Flabber", 240);
 let bible = new Book("The Bible", "God", 1350);
-let coding = new Book("Eloquent JavaScript", "Marjin Haverbeke", 450); 
+let coding = new Book("Eloquent JavaScript", "Marjin Haverbeke", 450);
 let oceans = new Book("Oceanic", "Paige Ruthe", 544);
 
 function addBookToLibrary() {
 
-// below code adds items to the firestore database
+    // below code adds items to the firestore database
 
     db.collection('books').add({
         name: document.querySelector('.bookTitle').value,
         author: document.querySelector('.bookAuthor').value,
         pages: document.querySelector('.bookPages').value,
         status: 'read'
-        
+
     })
-    
-    
+
+
     // let newBook = new Book(name, author, pages);
-    
+
     // myLibrary.push(newBook);
     // publishBook(newBook);
-        document.querySelector('.bookTitle').value = '';
-        document.querySelector('.bookAuthor').value = '';
-        document.querySelector('.bookPages').value = '';
+    document.querySelector('.bookTitle').value = '';
+    document.querySelector('.bookAuthor').value = '';
+    document.querySelector('.bookPages').value = '';
 }
-  
+
 
 
 addBook.addEventListener('click', addBookToLibrary);
@@ -82,11 +82,11 @@ addBook.addEventListener('click', addBookToLibrary);
 
 
 function publishBook(book, id) {
-    
+
     let name = book.name;
     let author = book.author;
     let pages = book.pages;
-    
+
     // book to display div
     let bookShelf = document.querySelector('.bookDisplay');
     let bookCreate = document.createElement('div');
@@ -94,11 +94,11 @@ function publishBook(book, id) {
     // close button
     let trashBook = document.createElement('div');
     trashBook.classList.add('close');
-    
+
     let trashButton = document.createElement('button');
     trashButton.classList.add('x');
     trashButton.textContent = 'x';
-    
+
     // Title of Book
     let tempTitle = document.createElement('h1');
     tempTitle.classList.add('title');
@@ -122,8 +122,8 @@ function publishBook(book, id) {
     let tempUnread = document.createElement('button');
     tempUnread.classList.add('unread');
     tempUnread.textContent = 'Unread';
-    
-    
+
+
     bookCreate.setAttribute('data-id', id);
 
     bookShelf.appendChild(bookCreate);
@@ -133,29 +133,29 @@ function publishBook(book, id) {
     bookCreate.appendChild(tempAuthor);
     bookCreate.appendChild(tempPages);
     bookCreate.appendChild(tempBtnCont);
-    
+
     tempBtnCont.appendChild(tempUnread);
     tempBtnCont.appendChild(tempRead);
-    
+
 
     let trashButt = document.querySelectorAll('.x');
-    
+
     let read = document.querySelectorAll('.read');
     let unread = document.querySelectorAll('.unread');
     trashButt.forEach(butt => butt.addEventListener('click', hidden));
     read.forEach(button => button.addEventListener('click', normalize));
     unread.forEach(button => button.addEventListener('click', grayScale));
 }
-    
-    
-       
+
+
+
 
 
 
 
 function trashCollector() {
     let trashButton = document.querySelectorAll('.x');
-    
+
     trashButton.forEach(buttons => buttons.addEventListener('click', hidden))
 }
 
@@ -171,7 +171,7 @@ let line3 = document.querySelector('.linedNav3');
 
 
 
-modalButton.addEventListener('click', function() {
+modalButton.addEventListener('click', function () {
     if (clicked == false) {
         clicked = true;
         modalPop.style.cssText = "display: grid; place-self: center center;";
@@ -188,17 +188,17 @@ modalButton.addEventListener('click', function() {
         clicked = false;
 
     }
-   
-    
+
+
 })
 
-modalClose.addEventListener('click', function() {
+modalClose.addEventListener('click', function () {
     modalPop.style.cssText = "display: none";
     line1.style.cssText = 'animation-name: nav1Close; animation-duration: .5s;';
-        line2.style.cssText = 'animation-name: nav2Close; animation-duration: .5s;';
-        line3.style.cssText = 'animation-name: nav3Close; animation-duration: .5s;';
-        pageContainer.style.cssText = 'transition: all 0.4s ease; -webkit-transform: scale(1); -webkit-filter: blur(0px) grayscale(0%);';
-        clicked = false;
+    line2.style.cssText = 'animation-name: nav2Close; animation-duration: .5s;';
+    line3.style.cssText = 'animation-name: nav3Close; animation-duration: .5s;';
+    pageContainer.style.cssText = 'transition: all 0.4s ease; -webkit-transform: scale(1); -webkit-filter: blur(0px) grayscale(0%);';
+    clicked = false;
 
 
 });
@@ -206,13 +206,15 @@ modalClose.addEventListener('click', function() {
 
 let gooModal = document.querySelector('.googlemodal');
 
-window.onload = function() {
+window.onload = function () {
+    let modal = document.querySelector('.modal');
+    modal.style.cssText = 'display: none;';
     gooModal.style.cssText = 'display: grid';
     pageContainer.style.cssText = 'transition: all 0.4s ease; -webkit-transform: scale(.99); -webkit-filter: blur(5px) grayscale(100%);';
 }
 
 let googButt = document.querySelector('.g-signin2');
-googButt.addEventListener('click', function() {
+googButt.addEventListener('click', function () {
     gooModal.style.cssText = 'display: none';
     pageContainer.style.cssText = 'transition: all 0.4s ease; -webkit-transform: scale(1); -webkit-filter: blur(0px) grayscale(0%);';
 
@@ -227,28 +229,28 @@ let closeBook = document.querySelectorAll('.close');
 let trashButt = document.querySelectorAll('.x');
 
 // NOTATING FOR FUTURE SELF ================= HOW TO PRINT SPECIFIC INDICES OF NODE ITEMS
-                        
+
 function hidden(e) {
-    
+
     let bookCreate = document.querySelectorAll('.exampleBook');
     // close button
     let trashButt = document.querySelectorAll('.x');
-   
-      
-    for (var i=0; i<trashButt.length; i++) {
-        (function(i) {
+
+
+    for (var i = 0; i < trashButt.length; i++) {
+        (function (i) {
             trashButt[i].index = i;
 
-            trashButt[i].addEventListener('click', function() {
-               
+            trashButt[i].addEventListener('click', function () {
+
             });
         })(i);
-        
+
     }
     console.log(this.index);
     myLibrary.splice(this.index, 1);
     document.querySelector('.bookDisplay').removeChild(bookCreate[this.index]);
-    
+
     // below code will delete items from firestore
     e.stopPropagation();
     // the 'let id' line targets the item in the firestore
@@ -271,53 +273,53 @@ function grayScale(e) {
 
 
 
-        let unread = document.querySelectorAll('.unread');
-        
-        for (var i=0; i<unread.length; i++) {    
-            (function(i) {
-                unread[i].index = i;
-                
-                unread[i].addEventListener('click', function() {
-                    
-                });
-            })(i);
-        }
-        let objectToChange = unread[this.index].parentNode.parentNode;
-            let objId = objectToChange.getAttribute('data-id');
-            
-            db.collection('books').doc(objId).update({
-                status: 'unread'
+    let unread = document.querySelectorAll('.unread');
+
+    for (var i = 0; i < unread.length; i++) {
+        (function (i) {
+            unread[i].index = i;
+
+            unread[i].addEventListener('click', function () {
+
             });
-        myLibrary[this.index].unread(this.index);
-        
-    
-    
+        })(i);
+    }
+    let objectToChange = unread[this.index].parentNode.parentNode;
+    let objId = objectToChange.getAttribute('data-id');
+
+    db.collection('books').doc(objId).update({
+        status: 'unread'
+    });
+    myLibrary[this.index].unread(this.index);
+
+
+
 }
 
 function normalize(status) {
 
-    
 
-        let read = document.querySelectorAll('.read');
-            for (var i=0; i<read.length; i++) {
-                (function(i) {
-                    read[i].index = i;
-        
-                    read[i].addEventListener('click', function() {
-                    });
-                })(i);
-                
-            }
-            let objectToChange = read[this.index].parentNode.parentNode;
-            let objId = objectToChange.getAttribute('data-id');
-            
-            db.collection('books').doc(objId).update({
-                status: 'read'
+
+    let read = document.querySelectorAll('.read');
+    for (var i = 0; i < read.length; i++) {
+        (function (i) {
+            read[i].index = i;
+
+            read[i].addEventListener('click', function () {
             });
-            
+        })(i);
 
-            myLibrary[this.index].read(this.index);
-    
+    }
+    let objectToChange = read[this.index].parentNode.parentNode;
+    let objId = objectToChange.getAttribute('data-id');
+
+    db.collection('books').doc(objId).update({
+        status: 'read'
+    });
+
+
+    myLibrary[this.index].read(this.index);
+
 }
 
 
@@ -327,7 +329,7 @@ function normalize(status) {
 
 // // firebase send off
 // function fireBaseSend() {
-    
+
 //     var task = storageRef.put(book);
 // }
 
@@ -359,33 +361,33 @@ function renderBook(doc, id) {
     let name = document.createElement('h1');
     let author = document.createElement('h3');
     let pages = document.createElement('h3');
-    
-    
+
+
 
 
     name.textContent = doc.data().name;
     author.textContent = doc.data().author;
     pages.textContent = doc.data().pages;
-    
+
     newBook = new Book(
-    name.textContent = doc.data().name, 
-    author.textContent = doc.data().author, 
-    pages.textContent = doc.data().pages,
-    status = doc.data().status);
+        name.textContent = doc.data().name,
+        author.textContent = doc.data().author,
+        pages.textContent = doc.data().pages,
+        status = doc.data().status);
 
     myLibrary.push(newBook);
-        
 
-    
-    
-    
+
+
+
+
 
     publishBook(newBook, id);
 }
 
 
-function search(nameKey){
-    for (var i=0; i < myLibrary.length; i++) {
+function search(nameKey) {
+    for (var i = 0; i < myLibrary.length; i++) {
         if (myLibrary[i].name === nameKey) {
             console.log(myLibrary[i]);
         }
@@ -429,8 +431,8 @@ to the console with the following code:
 db.collection('books').get().then(snapshot => {
     snapshot.docs.forEach(snapshot => {
         let status = snapshot.data().status;
-        
-         
+
+
     })
 })
 
@@ -441,7 +443,7 @@ db.collection('books').onSnapshot(snapshot => {
     changes.forEach(change => {
         if (change.type == 'added') {
             renderBook(change.doc, change.doc.id);
-        } 
+        }
     })
 })
 
@@ -453,25 +455,25 @@ function rememberColor(file) {
     let bookDoc = file.data().status;
     let changed = file.id;
 
-    
-    
-    
-    
-    if(bookDoc === 'unread') {
-        
+
+
+
+
+    if (bookDoc === 'unread') {
+
         let junction = bookShelf.querySelectorAll('.exampleBook');
         junction.forEach(pic => {
-            for(let i = 0; i < junction.length; i++) {
+            for (let i = 0; i < junction.length; i++) {
                 let pic = junction[i].getAttribute('data-id');
 
-                if(pic === changed) {
+                if (pic === changed) {
                     let colorScheme = junction[i];
                     colorScheme.style.cssText = '-webkit-filter: grayscale(100%);';
                 }
             }
         })
-    
-        
+
+
     }
 
 }

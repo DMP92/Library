@@ -438,7 +438,7 @@ footer {
 
 @media screen and (max-width: 500px) {
     .modal {
-            display: none;
+            display: grid;
             position: fixed;
             background-color: #15224b;
             border-radius: 5px;
@@ -458,7 +458,7 @@ footer {
 @media screen and (min-width: 501px) {
     .modal {
         
-            display: none;
+            display: grid;
             position: fixed;
             background-color: #15224b;
             border-radius: 5px;
